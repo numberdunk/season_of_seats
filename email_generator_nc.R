@@ -666,5 +666,5 @@ campaign <- POST(url = 'https://us3.api.mailchimp.com/3.0/campaigns',
                   encode = "json",
                   body = campaign_body)
 fromJSON(rawToChar(campaign$content))$id
-POST(url = paste('https://us3.api.mailchimp.com/3.0/campaigns/',fromJSON(rawToChar(campaign$content))$id,'/actions/send',sep = ""), authenticate('prousseas', '6f85e07f0bd81401409930cb9e0432d8-us3'), encode = "json")
+POST(url = paste('https://us3.api.mailchimp.com/3.0/campaigns/',fromJSON(rawToChar(campaign$content))$id,'/actions/send',sep = ""), authenticate('prousseas', '###'), encode = "json")
 }
