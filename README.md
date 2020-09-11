@@ -18,6 +18,8 @@ I used three main services to fully automate this pipeline:
 I also set up a facebook page to spend a little on ads and give more legitimacy to the project in order to get actual users (even though the service was free)
 
 ## Pulling the Data
+[CODE FOR THIS SECTION](https://github.com/numberdunk/season_of_seats/blob/master/seatgeeklistingpulls_nc.R)
+
 Most ticket marketplaces do not provide APIs which would make this a seamless process.  Stubhub had an API, but deprecated it a while ago, and Ticketmaster doesn't surface an endpoint to individual ticket listings.  Through some research I was able to use the Seatgeek API to pull individual listings and then hack together their checkout URL to make it seamless for fans to click a button in the email alert and be brought straight to the checkout page.
 
 The majority of work here was upfront gathering all the specific venue and performer IDs in Seatgeek for each team and their corresponding arena.  Once I had that together, I used the `HTTR` and `JSONLITE` packages in R to call each endpoint and build a dataframe of all listings for all teams in the next 30 days.  I didn't want to pull data that was too far in advance as ticket inventory can change a ton when tipoff gets closer.  Plus, most fans looking to take the time and effort out of buying tickets are not the types of people who plan that far in advance.
@@ -25,6 +27,8 @@ The majority of work here was upfront gathering all the specific venue and perfo
 After pulling the data I wrote the new dataframe to a table in BigQuery called ticket_api_pull_01.  I ran this job early each morning with the idea that I wanted to send alerts at the start of everyone's day, around 7:00AM local time when they were sitting to eat breakfast or commuting into work, so they had a chance to get these tickets before everyone who searched on their lunchbreaks.
 
 ## Finding the Deals
+[CODE FOR THIS SECTION](https://github.com/numberdunk/season_of_seats/blob/master/email_generator_nc.R)
+
 I came up with three deal calculations and tiers to reflect them.  In some cases I noticed that one team might not have any listings which met the cutoff for "best value", but I always wanted to send out three deals in each email per team.  So I created a "bronze", "silver", and "gold" tier system to indicate in the email alert to indicate how each deal ranked.
 
 ### Bronze
